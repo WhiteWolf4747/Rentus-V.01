@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter06/home.dart';
+
 import 'package:flutter06/main.dart';
 import 'package:flutter06/listingdetailpage.dart';
+import 'classes.dart';
 
 class searchPageMap extends StatelessWidget {
   const searchPageMap({Key? key}) : super(key: key);
@@ -14,7 +15,7 @@ class searchPageMap extends StatelessWidget {
           textTheme: TextTheme(
               headline1: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               headline2: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          primaryColor: Colors.deepOrange),
+          primaryColor: primarycolor),
       home: Scaffold(
           body: Stack(
         children: [
@@ -77,7 +78,6 @@ class searchPageMap extends StatelessWidget {
                               ],
                             ),
                           )),
-                      //whole page below search and filter ie Bottom sheet
                     ],
                   ),
                   Positioned(
@@ -94,8 +94,10 @@ class searchPageMap extends StatelessWidget {
                                   BorderRadius.all(Radius.circular(32)),
                               boxShadow: [
                                 BoxShadow(
-                                    color: Color.fromARGB(255, 201, 201, 201),
-                                    blurRadius: 51.0)
+                                    color: Color.fromARGB(167, 107, 107, 107),
+                                    blurRadius: 20.0,
+                                    spreadRadius: 30,
+                                    offset: Offset(0, 25))
                               ]),
                           child: Row(
                             children: [
@@ -160,9 +162,16 @@ class searchPageMap extends StatelessWidget {
                   child: Container(
                     height: 800,
                     padding: EdgeInsets.fromLTRB(20, 30, 20, 0),
+                    margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
                     decoration: BoxDecoration(
                         color: Color.fromARGB(255, 245, 245, 245),
-                        borderRadius: BorderRadius.all(Radius.circular(32))),
+                        borderRadius: BorderRadius.all(Radius.circular(32)),
+                        boxShadow: [
+                          BoxShadow(
+                              color: Color.fromARGB(255, 139, 139, 139),
+                              blurRadius: 20,
+                              spreadRadius: 2)
+                        ]),
                     child: Column(
                       children: [
                         //number of items
@@ -216,91 +225,7 @@ class searchPageMap extends StatelessWidget {
   }
 }
 
-class featuredEachBlocks extends StatelessWidget {
-  final String featuredImage;
-  final String featuredRating;
-  final String featuredTitle;
-  final String featuredprice;
 
-  featuredEachBlocks(this.featuredImage, this.featuredRating,
-      this.featuredTitle, this.featuredprice);
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () => Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => listingdetail())),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Stack(
-            children: [
-              Container(
-                height: 175,
-                width: 175,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage(featuredImage), fit: BoxFit.cover),
-                    borderRadius: BorderRadius.all(Radius.circular(8))),
-              ),
-              Positioned(
-                  bottom: -15,
-                  right: 10,
-                  child: CircleAvatar(
-                    radius: 18,
-                    backgroundImage: AssetImage("assets/Joker.jpg"),
-                  ))
-            ],
-          ),
-          Container(
-              padding: EdgeInsets.fromLTRB(0, 6, 0, 4),
-              width: 75,
-              child: Image(image: AssetImage(featuredRating))),
-          Container(
-            width: 175,
-            height: 40,
-            child: Text(
-              featuredTitle,
-              style: TextStyle(
-                  height: 1.2,
-                  fontSize: 18,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 6, 0, 0),
-            child: Text(
-              featuredprice,
-              style: TextStyle(
-                  height: 1.1,
-                  fontSize: 16,
-                  color: Colors.deepOrange,
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class CustomCategoryChip extends StatelessWidget {
-  final String title;
-
-  CustomCategoryChip(this.title);
-
-  @override
-  Widget build(BuildContext context) {
-    return Chip(
-      label: Text(
-        title,
-        style: TextStyle(fontFamily: "poppins"),
-      ),
-      backgroundColor: Color.fromARGB(255, 255, 255, 255),
-    );
-  }
-}
 
 
 /*

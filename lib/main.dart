@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter06/searchpagemap.dart';
+import 'splashScreen.dart';
 import 'home.dart';
-import 'listingdetailpage.dart';
 import 'searchpage.dart';
+import 'msgNotifications.dart';
+import 'profile.dart';
+import 'favourites.dart';
 
 void main() {
-  runApp(statefullhome());
+  runApp(splashhomepage());
 }
 
 class statefullhome extends StatefulWidget {
@@ -17,7 +19,13 @@ class statefullhome extends StatefulWidget {
 
 class _statefullhomeState extends State<statefullhome> {
   int currentindex = 0;
-  final pages = [myhomepagefirst(), searchpage(), searchPageMap()];
+  final pages = [
+    myhomepagefirst(),
+    favouritesPage(),
+    searchpage(),
+    msgNotpage(),
+    profilePage()
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -25,15 +33,23 @@ class _statefullhomeState extends State<statefullhome> {
       title: "Abel",
       home: Scaffold(
           bottomNavigationBar: BottomNavigationBar(
+            unselectedItemColor: Colors.black,
+            selectedItemColor: Colors.deepOrange,
+            selectedLabelStyle: TextStyle(
+                fontFamily: "montserrat", fontWeight: FontWeight.bold),
             currentIndex: currentindex,
             onTap: (index) => setState(() => currentindex = index),
             items: [
               BottomNavigationBarItem(
                   icon: Icon(Icons.home_outlined), label: "home"),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.search), label: "Explore"),
+                  icon: Icon(Icons.favorite), label: "Saved"),
               BottomNavigationBarItem(
                   icon: Icon(Icons.map_outlined), label: "Map"),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.message), label: "Inbox"),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.person), label: "Profile")
             ],
           ),
           body: pages[currentindex]),

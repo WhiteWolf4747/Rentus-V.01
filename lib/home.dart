@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'main.dart';
-import 'listingdetailpage.dart';
-import 'searchpagemap.dart';
+import 'classes.dart';
 
 class house {
   String title = "Entire 2bedroom is aprtment complex";
@@ -22,11 +20,11 @@ class myhomepagefirst extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-          fontFamily: "poppins",
+          fontFamily: textfont,
+          primaryColor: primarycolor,
           textTheme: TextTheme(
-              headline1: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              headline2: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          primaryColor: Colors.deepOrange),
+              headline1: TextStyle(fontSize: 32),
+              headline2: TextStyle(fontSize: 28))),
       home: Scaffold(
         body: ListView(
           shrinkWrap: true,
@@ -57,7 +55,7 @@ class myhomepagefirst extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Icon(
-                                Icons.notification_important_outlined,
+                                Icons.notifications_active_outlined,
                                 color: Colors.white,
                                 size: 32,
                               ),
@@ -69,7 +67,7 @@ class myhomepagefirst extends StatelessWidget {
                                     color: Color.fromARGB(255, 255, 255, 255)),
                               ),
                               Icon(
-                                Icons.menu,
+                                Icons.filter_alt_outlined,
                                 color: Colors.white,
                                 size: 32,
                               )
@@ -120,7 +118,7 @@ class myhomepagefirst extends StatelessWidget {
                                       "Be anywhere \nAnytime",
                                       style: TextStyle(
                                         height: 1,
-                                        fontSize: 32,
+                                        fontSize: 30,
                                         fontWeight: FontWeight.w600,
                                         color:
                                             Color.fromARGB(255, 255, 255, 255),
@@ -167,6 +165,48 @@ class myhomepagefirst extends StatelessWidget {
                               SizedBox(
                                 height: 32,
                               ),
+                              //for u block
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "For you",
+                                    style: TextStyle(
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color.fromARGB(255, 15, 7, 65),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 8,
+                                  ),
+                                  //scrollview
+                                  SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    child: Row(
+                                      children: [
+                                        smallerfeaturedblock(),
+                                        SizedBox(
+                                          width: 16,
+                                        ),
+                                        smallerfeaturedblock(),
+                                        SizedBox(
+                                          width: 16,
+                                        ),
+                                        smallerfeaturedblock(),
+                                        SizedBox(
+                                          width: 16,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+
+                              SizedBox(
+                                height: 24,
+                              ),
+
                               //featured places
                               Column(
                                 children: [
@@ -200,9 +240,10 @@ class myhomepagefirst extends StatelessWidget {
                                           "\$32")
                                     ],
                                   ),
+
                                   SizedBox(
                                     height: 24,
-                                  ),
+                                  )
                                 ],
                               )
                             ],
@@ -250,141 +291,6 @@ class myhomepagefirst extends StatelessWidget {
             //the whole page below search
           ],
         ),
-      ),
-    );
-  }
-}
-
-class locationEachBlocks extends StatelessWidget {
-  final String imageloc;
-  final String locTitle;
-
-  locationEachBlocks(this.imageloc, this.locTitle);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 100,
-      width: 100,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(8)),
-          image:
-              DecorationImage(image: AssetImage(imageloc), fit: BoxFit.cover)),
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Positioned(
-            child: Container(
-              height: 110,
-              width: 110,
-              decoration: BoxDecoration(
-                  color: Color.fromRGBO(255, 0, 0, 0.15),
-                  borderRadius: BorderRadius.all(Radius.circular(8))),
-            ),
-          ),
-          Text(
-            locTitle,
-            style: TextStyle(
-                fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class locationscrollview extends StatelessWidget {
-  const locationscrollview({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: <Widget>[
-          locationEachBlocks("assets/aa.jpg", " Addis\nAbaba"),
-          SizedBox(
-            width: 20,
-          ),
-          locationEachBlocks("assets/axum.jpg", "Axum"),
-          SizedBox(
-            width: 20,
-          ),
-          locationEachBlocks("assets/lalibela.jpg", "Lalibela"),
-          SizedBox(
-            width: 20,
-          ),
-          locationEachBlocks("assets/lalibela.jpg", "Lalibela")
-        ],
-      ),
-    );
-  }
-}
-
-class featuredEachBlocks extends StatelessWidget {
-  final String featuredImage;
-  final String featuredRating;
-  final String featuredTitle;
-  final String featuredprice;
-
-  featuredEachBlocks(this.featuredImage, this.featuredRating,
-      this.featuredTitle, this.featuredprice);
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () => Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => listingdetail())),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Stack(
-            children: [
-              Container(
-                height: 150,
-                width: 175,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage(featuredImage), fit: BoxFit.cover),
-                    borderRadius: BorderRadius.all(Radius.circular(8))),
-              ),
-              Positioned(
-                  bottom: -15,
-                  right: 10,
-                  child: CircleAvatar(
-                    radius: 18,
-                    backgroundImage: AssetImage("assets/Joker.jpg"),
-                  ))
-            ],
-          ),
-          Container(
-              padding: EdgeInsets.fromLTRB(0, 6, 0, 4),
-              width: 75,
-              child: Image(image: AssetImage(featuredRating))),
-          Container(
-            width: 175,
-            height: 35,
-            child: Text(
-              featuredTitle,
-              style: TextStyle(
-                  height: 1.2,
-                  fontSize: 16,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 6, 0, 0),
-            child: Text(
-              featuredprice,
-              style: TextStyle(
-                  height: 1.1,
-                  fontSize: 16,
-                  color: Colors.deepOrange,
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
-        ],
       ),
     );
   }

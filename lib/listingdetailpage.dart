@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter06/main.dart';
-import 'home.dart';
+import 'package:flutter06/home.dart';
+
+import 'classes.dart';
 
 class listingdetail extends StatelessWidget {
   const listingdetail({Key? key}) : super(key: key);
@@ -9,15 +10,16 @@ class listingdetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "abel",
+      theme: ThemeData(fontFamily: textfont, primaryColor: primarycolor),
       home: Scaffold(
-          body: Stack(
-        children: [
-          ListView(
-            shrinkWrap: true,
-            children: [
-              Container(
-                margin: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0),
-                child: Column(
+          body: Container(
+        margin: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20),
+        child: Stack(
+          children: [
+            ListView(
+              shrinkWrap: true,
+              children: [
+                Column(
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -28,7 +30,7 @@ class listingdetail extends StatelessWidget {
                             InkWell(
                               child: Icon(
                                 Icons.arrow_back_ios_new_sharp,
-                                color: Colors.deepOrange,
+                                color: primarycolor,
                                 size: 32,
                               ),
                               onTap: () => Navigator.of(context).pop(),
@@ -70,7 +72,7 @@ class listingdetail extends StatelessWidget {
                       width: 400.0,
                       height: 200.0,
                       child: Image.asset(
-                        "assets/Joker.jpg",
+                        "assets/house01.jpg",
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -92,42 +94,15 @@ class listingdetail extends StatelessWidget {
                               Text(
                                 "Something about it is in\nsth and it is true ",
                                 style: TextStyle(
-                                    fontFamily: "poppins",
                                     fontSize: 22.0,
                                     fontWeight: FontWeight.bold),
                               ),
 
                               //---- Rating(as u can see this whole row is useless u can use actual pics that individual icons)
                               //rating
-                              Row(
-                                children: const [
-                                  Icon(
-                                    Icons.star,
-                                    color: Colors.amber,
-                                    size: 26.0,
-                                  ),
-                                  Icon(
-                                    Icons.star,
-                                    color: Colors.amber,
-                                    size: 26.0,
-                                  ),
-                                  Icon(
-                                    Icons.star,
-                                    color: Colors.amber,
-                                    size: 26.0,
-                                  ),
-                                  Icon(
-                                    Icons.star,
-                                    color: Colors.amber,
-                                    size: 26.0,
-                                  ),
-                                  Icon(
-                                    Icons.star,
-                                    color: Color.fromARGB(255, 170, 170, 170),
-                                    size: 26.0,
-                                  )
-                                ],
-                              ),
+                              Container(
+                                  height: 28,
+                                  child: Image.asset("assets/four.jpg"))
                             ],
                           ),
                           Column(
@@ -139,20 +114,14 @@ class listingdetail extends StatelessWidget {
                                 child: Icon(Icons.share),
                               ),
                               Row(
-                                children: const [
+                                children: [
                                   //---- price
-                                  Text("\$29/",
+                                  Text("\$29 ",
                                       style: TextStyle(
                                           fontFamily: "poppins",
                                           fontSize: 24.0,
                                           fontWeight: FontWeight.bold,
-                                          color: Colors.deepOrange)),
-                                  Text(
-                                    "night",
-                                    style: TextStyle(
-                                        fontSize: 12.0,
-                                        color: Colors.deepOrange),
-                                  )
+                                          color: primarycolor)),
                                 ],
                               )
                             ],
@@ -172,7 +141,7 @@ class listingdetail extends StatelessWidget {
                             child: Text("Place informations:",
                                 style: TextStyle(
                                     fontFamily: "poppins",
-                                    fontSize: 16.0,
+                                    fontSize: 18.0,
                                     fontWeight: FontWeight.bold)),
                           ),
                           Row(
@@ -190,33 +159,76 @@ class listingdetail extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                                   //---- Location
-                                  Text("Addis Ababa, Ethiopia",
-                                      style: TextStyle(
-                                        fontFamily: "poppins",
-                                      )),
+                                  Text("Addis Ababa, Ethiopia"),
                                   //---- "guests.rooms.beds.bathroom..."
-                                  Text("2guests 1bathroom 3bedroom 2 bed",
-                                      style: TextStyle(
-                                        fontFamily: "poppins",
-                                      )),
+                                  Text("2guests 1bathroom 3bedroom 2 bed"),
                                   //---- Host name
-                                  Text("Hosted by Abebe bekila",
-                                      style: TextStyle(
-                                        fontFamily: "poppins",
-                                      ))
+                                  Text("Hosted by Abebe bekila")
                                 ],
                               )
                             ],
                           ),
+
+                          //house rules title
                           Padding(
-                            padding:
-                                const EdgeInsets.fromLTRB(0, 14.0, 0, 10.0),
-                            child: Text("Description:",
-                                style: TextStyle(
-                                    fontFamily: "poppins",
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color.fromARGB(255, 95, 95, 95))),
+                            padding: const EdgeInsets.fromLTRB(0, 24, 0, 14),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "House Rules",
+                                  style: TextStyle(
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  "See more",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: primarycolor),
+                                )
+                              ],
+                            ),
+                          ),
+
+                          //house rules
+                          Column(
+                            children: [
+                              houseRules(
+                                  Icons.door_front_door_outlined,
+                                  "Smoking is ",
+                                  "Wifi is Allowed not allowed in this area"),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              houseRules(Icons.pets, "Pets are allowed ",
+                                  "Pets allowed in the vecinity in the area of the world "),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              houseRules(Icons.timelapse_outlined, "Chekin ",
+                                  "Pets allowed in the vecinity in the area of the world "),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              houseRules(
+                                  Icons.not_interested_rounded,
+                                  "No blobs allowed ",
+                                  "n the area of the world of the making is the way")
+                            ],
+                          ),
+
+                          SizedBox(
+                            height: 24,
+                          ),
+
+                          Text("Description:",
+                              style: TextStyle(
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color.fromARGB(255, 95, 95, 95))),
+                          SizedBox(
+                            height: 8,
                           ),
                           //---- Description
                           Text(
@@ -245,98 +257,39 @@ class listingdetail extends StatelessWidget {
                                   style: TextStyle(
                                       fontFamily: "poppins",
                                       fontSize: 14.0,
-                                      color: Colors.deepOrange,
+                                      color: primarycolor,
                                       fontWeight: FontWeight.bold))
                             ],
                           ),
 
-                          //---- Amenitites list/row
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 10.0, 0, 0),
+                          //---- Amenitites scroll view
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 //amenities boxes
-                                Container(
-                                  padding:
-                                      EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
-                                  decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                      begin: Alignment.topRight,
-                                      end: Alignment.bottomLeft,
-                                      colors: [
-                                        Color.fromARGB(255, 238, 214, 0),
-                                        Color.fromARGB(255, 255, 60, 0)
-                                      ],
-                                      tileMode: TileMode.repeated,
-                                    ),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(30)),
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        "Wifi",
-                                        style: TextStyle(
-                                            fontFamily: "poppins",
-                                            fontSize: 16.0,
-                                            fontWeight: FontWeight.w400),
-                                      ),
-                                      Icon(
-                                        Icons.wifi,
-                                        size: 24.0,
-                                      )
-                                    ],
-                                  ),
+                                CustomAmenitiesChip(" Wifi", Icons.wifi),
+                                SizedBox(
+                                  width: 10,
                                 ),
-                                Container(
-                                  padding:
-                                      EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
-                                  decoration: BoxDecoration(
-                                    color: Colors.deepOrangeAccent,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(30)),
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        "Kitchenstu",
-                                        style: TextStyle(
-                                            fontFamily: "poppins",
-                                            fontSize: 16.0,
-                                            fontWeight: FontWeight.w400),
-                                      ),
-                                      Icon(
-                                        Icons.kitchen_outlined,
-                                        size: 24.0,
-                                      )
-                                    ],
-                                  ),
+                                CustomAmenitiesChip(
+                                    " Kitchen", Icons.kitchen_outlined),
+                                SizedBox(
+                                  width: 10,
                                 ),
-                                Container(
-                                  padding:
-                                      EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
-                                  decoration: BoxDecoration(
-                                    color: Colors.deepOrangeAccent,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(30)),
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        "Washers",
-                                        style: TextStyle(
-                                            fontFamily: "poppins",
-                                            fontSize: 16.0,
-                                            fontWeight: FontWeight.w400),
-                                      ),
-                                      Icon(
-                                        Icons.wallet_giftcard_sharp,
-                                        size: 24.0,
-                                      )
-                                    ],
-                                  ),
-                                )
+                                CustomAmenitiesChip(
+                                    " Parking", Icons.local_parking_outlined),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                CustomAmenitiesChip(" Wifi", Icons.wifi),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                CustomAmenitiesChip(" Wifi", Icons.wifi),
+                                SizedBox(
+                                  width: 10,
+                                ),
 
                                 //amenites circles end
                               ],
@@ -378,32 +331,26 @@ class listingdetail extends StatelessWidget {
                             children: [
                               Text("Review Place",
                                   style: TextStyle(
-                                      fontFamily: "poppins",
                                       fontSize: 18.0,
                                       fontWeight: FontWeight.bold)),
                               Text("see more",
                                   style: TextStyle(
-                                      fontFamily: "poppins",
                                       fontSize: 16.0,
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.deepOrange))
+                                      color: primarycolor))
                             ],
                           ), //title
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 0, 0, 10.0),
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.star,
-                                  color: Colors.amber,
-                                ),
-                                Icon(
-                                  Icons.star,
-                                  color: Colors.amber,
-                                ),
-                                Text("4.5 reviews")
-                              ],
-                            ),
+                          Row(
+                            children: [
+                              Image.asset(
+                                "assets/four.jpg",
+                                height: 24,
+                              ),
+                              Text("4.5 reviews")
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10,
                           ),
                           Row(
                             children: [
@@ -422,9 +369,9 @@ class listingdetail extends StatelessWidget {
                                             fontFamily: "poppins",
                                             fontSize: 18.0,
                                             fontWeight: FontWeight.bold)),
-                                    Icon(
-                                      Icons.star,
-                                      color: Colors.amber,
+                                    Image.asset(
+                                      "assets/four.jpg",
+                                      height: 24,
                                     ),
                                   ],
                                 ),
@@ -458,160 +405,39 @@ class listingdetail extends StatelessWidget {
                                     fontSize: 18.0,
                                     fontWeight: FontWeight.bold)),
                           ),
-                          //vertical 3 blocks
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              //individual blocks
-                              Container(
-                                width: 175.0,
-                                child: Container(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Stack(
-                                        alignment:
-                                            AlignmentDirectional.bottomEnd,
-                                        overflow: Overflow.visible,
-                                        children: [
-                                          Container(
-                                            height: 150,
-                                            child: ClipRRect(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(12)),
-                                              child: Image(
-                                                  image: AssetImage(
-                                                      "assets/Joker.jpg")),
-                                            ),
-                                          ),
-                                          Positioned(
-                                              bottom: -12,
-                                              right: 10,
-                                              child: CircleAvatar(
-                                                radius: 16,
-                                                backgroundImage: AssetImage(
-                                                    "assets/loc.jpg"),
-                                              )),
-                                        ],
-                                      ),
-                                      Container(
-                                        padding:
-                                            EdgeInsets.fromLTRB(0, 8, 0, 6),
-                                        child: Image.asset(
-                                          "assets/four.jpg",
-                                          height: 12,
-                                        ),
-                                      ),
-                                      Text(
-                                        "Entire Luxury altirm apartment",
-                                        style: TextStyle(
-                                            height: 1.1,
-                                            fontFamily: "poppins",
-                                            fontSize: 16.0,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      Text("\$29 birr ",
-                                          style: TextStyle(
-                                              fontFamily: "poppins",
-                                              fontSize: 14.0,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.deepOrange)),
-                                    ],
-                                  ),
+                          //featured scroll view
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: [
+                                //individual blocks
+                                featuredEachBlocks("assets/house03.jpg",
+                                    "assets/four.jpg", "house01.title", "\$74"),
+                                SizedBox(
+                                  width: 20,
                                 ),
-                              ),
-                              Container(
-                                width: 175.0,
-                                child: Container(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Stack(
-                                        alignment:
-                                            AlignmentDirectional.bottomEnd,
-                                        overflow: Overflow.visible,
-                                        children: [
-                                          Container(
-                                            height: 150,
-                                            child: ClipRRect(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(12)),
-                                              child: Image(
-                                                  image: AssetImage(
-                                                      "assets/Joker.jpg")),
-                                            ),
-                                          ),
-                                          Positioned(
-                                              bottom: -12,
-                                              right: 10,
-                                              child: CircleAvatar(
-                                                radius: 16,
-                                                backgroundImage: AssetImage(
-                                                    "assets/loc.jpg"),
-                                              )),
-                                        ],
-                                      ),
-                                      Container(
-                                        padding:
-                                            EdgeInsets.fromLTRB(0, 8, 0, 6),
-                                        child: Image.asset(
-                                          "assets/four.jpg",
-                                          height: 12,
-                                        ),
-                                      ),
-                                      Text(
-                                        "Entire Luxury altirm apartment",
-                                        style: TextStyle(
-                                            height: 1.1,
-                                            fontFamily: "poppins",
-                                            fontSize: 16.0,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      Text("\$29 birr ",
-                                          style: TextStyle(
-                                              fontFamily: "poppins",
-                                              fontSize: 14.0,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.deepOrange)),
-                                    ],
-                                  ),
+                                featuredEachBlocks("assets/house03.jpg",
+                                    "assets/four.jpg", "house01.title", "\$74"),
+                                SizedBox(
+                                  width: 20,
                                 ),
-                              ),
-                            ],
+                                featuredEachBlocks("assets/house03.jpg",
+                                    "assets/four.jpg", "house01.title", "\$74"),
+                              ],
+                            ),
                           )
                         ],
                       ),
                     )
                   ], //outer list
-                ),
-              )
-            ],
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              margin: const EdgeInsets.fromLTRB(20, 0, 20, 10),
-              width: double.infinity,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    minimumSize: Size(double.infinity, 60),
-                    primary: Colors.deepOrange),
-                onPressed: () {
-                  statefullhome();
-                },
-                child: const Text(
-                  'Reserve Now ',
-                  style: TextStyle(
-                      fontFamily: "poppins",
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16),
-                ),
-              ),
+                )
+              ],
             ),
-          )
-        ],
+            Align(
+                alignment: Alignment.bottomCenter,
+                child: buttonWide(60, "RESERVE NOW", myhomepagefirst()))
+          ],
+        ),
       )),
     );
   }
