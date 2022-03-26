@@ -80,7 +80,12 @@ flutter:
         - asset: fonts/Poppins.ttf
         - asset: fonts/Poppins-Bold.ttf
         - asset: fonts/Poppins-Medium.ttf
-
+    - family: montserrat
+      fonts:
+        - asset: fonts/Montserrat-Bold.ttf
+        - asset: fonts/Montserrat-ExtraBold.ttf
+        - asset: fonts/Montserrat-SemiBold.ttf
+        - asset: fonts/Montserrat-regular.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
