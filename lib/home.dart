@@ -13,6 +13,28 @@ class house {
 
 house house01 = new house();
 
+// THIS IS TEMPORARY
+
+String SERVER_ADDRESS = "http://192.16.1.9:8000"
+
+List<house> parse(String responseBody) { 
+   final parsed = json.decode(responseBody).cast<Map<String, dynamic>>(); 
+   return parsed.map<house>((json) => house.fromMap(json)).toList(); 
+} 
+
+Future<List<house>> fetchHouses() async { 
+   final response = await http.get("$SERVER_ADDRESS/house/all"); 
+   if (response.statusCode == 200) { 
+      return parse(response.body); 
+   } else { 
+      throw Exception('Unable to fetch products from the REST API'); 
+   } 
+}
+
+
+Future<List<house>> houses = fetchHouses()
+
+
 class myhomepagefirst extends StatelessWidget {
   const myhomepagefirst({Key? key}) : super(key: key);
 
@@ -226,19 +248,33 @@ class myhomepagefirst extends StatelessWidget {
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      //the one blick
-                                      featuredEachBlocks(
-                                          house01.image,
-                                          "assets/four.jpg",
-                                          house01.title,
-                                          house01.price.toString()),
-                                      featuredEachBlocks(
-                                          "assets/house01.jpg",
-                                          "assets/four.jpg",
-                                          house01.title,
-                                          "\$32")
-                                    ],
+                                    child: FutureBuilder<List<house>>(
+                                      future: houses,
+                                      builder: (BuildContext context, AsyncSnapshot<List<house> snapshot){
+                                        List<Widget> children;
+                                        if(snapshot.hasData){
+                                          children = featuredEachBlocks(  
+                                            snapshot.data.image,
+                                            "assets/four.jpg",
+                                            snapshot.title,
+                                            snapshot.price.toString()
+                                          )
+                                        }
+                                      }
+                                    )
+                                    // children: [
+                                    //   //the one blick
+                                    //   featuredEachBlocks(
+                                    //       house01.image,
+                                    //       "assets/four.jpg",
+                                    //       house01.title,
+                                    //       house01.price.toString()),
+                                    //   featuredEachBlocks(
+                                    //       "assets/house01.jpg",
+                                    //       "assets/four.jpg",
+                                    //       house01.title,
+                                    //       "\$32")
+                                    // ],
                                   ),
 
                                   SizedBox(
