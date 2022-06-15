@@ -1,58 +1,18 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
-import 'splashScreen.dart';
-import 'home.dart';
-import 'searchpage.dart';
-import 'msgNotifications.dart';
-import 'profile.dart';
-import 'favourites.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter06/Screens/hostapp/createlisting/createlisting.dart';
+import 'package:flutter06/Screens/login.dart';
+import 'Screens/hostapp/hostbottomnavigation.dart';
+import 'package:flutter06/Screens/hostapp/hostprofile.dart';
+import 'package:flutter06/bottomnavigator.dart';
+import 'package:flutter06/reservations.dart';
+import 'package:flutter06/Screens/splashScreen.dart';
 
-void main() {
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
+  //the page
   runApp(splashhomepage());
-}
-
-class statefullhome extends StatefulWidget {
-  const statefullhome({Key? key}) : super(key: key);
-
-  @override
-  State<statefullhome> createState() => _statefullhomeState();
-}
-
-class _statefullhomeState extends State<statefullhome> {
-  int currentindex = 0;
-  final pages = [
-    myhomepagefirst(),
-    favouritesPage(),
-    searchpage(),
-    msgNotpage(),
-    profilePage()
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "Abel",
-      home: Scaffold(
-          bottomNavigationBar: BottomNavigationBar(
-            unselectedItemColor: Colors.black,
-            selectedItemColor: Colors.deepOrange,
-            selectedLabelStyle: TextStyle(
-                fontFamily: "montserrat", fontWeight: FontWeight.bold),
-            currentIndex: currentindex,
-            onTap: (index) => setState(() => currentindex = index),
-            items: [
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.home_outlined), label: "home"),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.favorite), label: "Saved"),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.map_outlined), label: "Map"),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.message), label: "Inbox"),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.person), label: "Profile")
-            ],
-          ),
-          body: pages[currentindex]),
-    );
-  }
 }

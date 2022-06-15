@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'classes.dart';
-import 'filter.dart';
+import 'package:flutter06/Services/featuredPlacesList.dart';
+import 'package:flutter06/shared/styles.dart';
+import 'shared/classes.dart';
+import 'Screens/filter.dart';
 import 'package:flutter06/main.dart';
-import 'package:flutter06/listingdetailpage.dart';
+import 'package:flutter06/Screens/listingdetailpage.dart';
 
 class searchpage extends StatelessWidget {
   const searchpage({Key? key}) : super(key: key);
@@ -10,19 +12,12 @@ class searchpage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-          fontFamily: textfont,
-          textTheme: TextTheme(
-              headline1: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              headline2: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          primaryColor: primarycolor),
       home: Scaffold(
         body: ListView(
           shrinkWrap: true,
           children: [
             Stack(
               alignment: AlignmentDirectional.topCenter,
-              overflow: Overflow.visible,
               children: [
                 //main page without searchbar
                 Column(
@@ -32,45 +27,51 @@ class searchpage extends StatelessWidget {
                         child: Container(
                           padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
                           height: 75,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.topRight,
-                              end: Alignment.bottomLeft,
-                              colors: [
-                                Color.fromARGB(255, 238, 214, 0),
-                                Color.fromARGB(255, 255, 60, 0)
-                              ],
-                              tileMode: TileMode.repeated,
-                            ),
-                          ),
+                          decoration: orangegradient,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Icon(
                                 Icons.notification_important_outlined,
                                 color: Colors.white,
-                                size: 32,
+                                size: 24,
                               ),
-                              Text(
-                                "Rentus",
-                                style: TextStyle(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color.fromARGB(255, 255, 255, 255)),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  RichText(
+                                      text: TextSpan(
+                                          text: "Rent",
+                                          style: header12bold.copyWith(
+                                              fontFamily: "montserrat",
+                                              color: textcolorprimary),
+                                          children: [
+                                        TextSpan(
+                                            text: "US",
+                                            style: header12bold.copyWith(
+                                                fontFamily: "montserrat",
+                                                color: Colors.white))
+                                      ])),
+                                  Text(
+                                    "Addis Ababa",
+                                    style:
+                                        header18.copyWith(color: Colors.white),
+                                  )
+                                ],
                               ),
                               InkWell(
-                                onTap: () => Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                        builder: (context) => filterSheet())),
-                                child: Icon(
-                                  Icons.filter_alt_outlined,
-                                  color: Colors.white,
-                                  size: 32,
-                                ),
-                              )
+                                  onTap: () => Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                          builder: (context) => filterSheet())),
+                                  child: Icon(
+                                    Icons.filter_list,
+                                    color: Colors.white,
+                                    size: 24,
+                                  )),
                             ],
                           ),
                         )),
+
                     //whole page below search
                     Container(
                       padding: EdgeInsets.fromLTRB(20, 30, 20, 0),
@@ -106,7 +107,7 @@ class searchpage extends StatelessWidget {
                             ),
                           ),
                           SizedBox(
-                            height: 10,
+                            height: 20,
                           ),
                           //number of items
                           Row(
@@ -114,19 +115,11 @@ class searchpage extends StatelessWidget {
                             children: [
                               Text(
                                 "50 items",
-                                style: TextStyle(
-                                    height: 1.2,
-                                    fontSize: 18,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
+                                style: header14,
                               ),
                               Text(
                                 "Featured",
-                                style: TextStyle(
-                                    height: 1.2,
-                                    fontSize: 14,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
+                                style: header14light,
                               ),
                             ],
                           ),
@@ -134,17 +127,7 @@ class searchpage extends StatelessWidget {
                             height: 24,
                           ),
                           //the two blocks
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              //the one blick
-                              featuredEachBlocks("assets/house01.jpg",
-                                  "assets/four.jpg", house01.title, "34"),
-
-                              featuredEachBlocks("assets/house02.jpg",
-                                  "assets/four.jpg", house01.title, "94")
-                            ],
-                          ),
+                          featuredlist(),
                           SizedBox(
                             height: 24,
                           ),
@@ -155,36 +138,8 @@ class searchpage extends StatelessWidget {
                 ),
                 Positioned(
                     //searchbar
-                    top: 90,
-                    child: Container(
-                      width: 360,
-                      height: 48,
-                      decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 252, 252, 252),
-                          borderRadius: BorderRadius.all(Radius.circular(32)),
-                          boxShadow: [
-                            BoxShadow(
-                                color: Color.fromARGB(255, 201, 201, 201),
-                                blurRadius: 51.0)
-                          ]),
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(16, 0, 4, 0),
-                            child: Icon(
-                              Icons.search,
-                              color: Colors.black,
-                              size: 32,
-                            ),
-                          ),
-                          Text("Enter something here...",
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Color.fromARGB(255, 172, 172, 172),
-                              ))
-                        ],
-                      ),
-                    )),
+                    top: 96,
+                    child: customsearchbar()),
               ],
             ),
           ],
